@@ -16,6 +16,10 @@ public class Player {
 
 	@Column(name = "level")
 	private Integer level;
+
+	public Player() {
+		
+	}
 	
 	public Player(String nickname, Integer level) {
 		this.nickname = nickname;
@@ -51,5 +55,4 @@ public class Player {
 		return "Player [id=" + id + ", nickname=" + nickname + ", level=" + level + "]";
 	}
 
-	
 }

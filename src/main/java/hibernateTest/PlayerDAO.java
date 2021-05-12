@@ -1,8 +1,11 @@
 package hibernateTest;
 
+import javax.persistence.EntityManager;
+
 public class PlayerDAO {
 
 	private static PlayerDAO instance;
+	private static EntityManager em;
 
 	private PlayerDAO() {
 	}
@@ -10,22 +13,25 @@ public class PlayerDAO {
 	public static PlayerDAO getInstance() {
 		if (instance == null) {
 			instance = new PlayerDAO();
+			em = DBConnection.getInstance().getEntityManager();
 		}
 		return instance;
 	}
 
-	public Player getByIndex(int id) {
+	public Player getByIndex(Integer id) {
 		return DBConnection.getInstance().getEntityManager().find(Player.class, id);
 	}
 
 	public void create(Player player) {
-		DBConnection.getInstance().getEntityManager().getTransaction().begin();
-		DBConnection.getInstance().getEntityManager().persist(player);
-		DBConnection.getInstance().getEntityManager().getTransaction().commit();
+		em.getTransaction().begin();
+		em.persist(player);
+		em.getTransaction().commit();
 	}
 	
 	public void remove(Player player) {
-		
+		em.getTransaction().begin();
+		em.remove(player);
+		em.getTransaction().commit();
 	}
 
 }
